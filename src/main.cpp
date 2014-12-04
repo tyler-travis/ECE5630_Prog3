@@ -36,7 +36,8 @@ int main(int argc, char** argv)
   }
   std::cout << "FFT" << std::endl;
   fft6(0, N, x);
-  bit_reorder(x, N);
+  if(N != 6)
+    bit_reorder(x, N);
   for(int i = 0; i < N; ++i)
   {
     //std::cout << x[i] << std::endl;
@@ -47,7 +48,7 @@ int main(int argc, char** argv)
 
 void bit_reorder(std::complex<double>* x, int N)
 {
-  int power, N1, N2;
+  int power, N1, N2, N3;
   std::cout << "N: " << N << std::endl;
   std::complex<double> temp[N];
   for(int i = 0; i < N; ++i)
@@ -55,13 +56,21 @@ void bit_reorder(std::complex<double>* x, int N)
     temp[i] = x[i];
   }
 
-  for(int i = 0; i < MAX_POWER; ++i)
+  for(int i = 0; i <= MAX_POWER; ++i)
   {
     if(pow(6,i) == N)
     {
       power = i;
       N1 = pow(6,i)/6.0;
       N2 = N1/6.0;
+      if(N2 > 1)
+      {
+        N3 = N2/6.0;
+      }
+      else
+      {
+        N3 = 1;
+      }
     }
   }
 
@@ -69,11 +78,11 @@ void bit_reorder(std::complex<double>* x, int N)
   std::cout << "N1: " << N1 << std::endl;
   std::cout << "N2: " << N2 << std::endl;
   int index = 0;
-  for(int i = 0; i < N; i++)
+  for(int i = 0; i < 6; i++)
   {
-    for(int j = 0; j < N1/N2; j++)
+    for(int j = 0; j < N1/N2*N3; j++)
     {
-      for(int k = 0; k < N2; k++)
+      for(int k = 0; k < N2/N3; k++)
       {
         if(index > N)
           break;
@@ -81,8 +90,16 @@ void bit_reorder(std::complex<double>* x, int N)
         if(i + j*N1/N2 + k*N1 < N)
         {
           std::cout << i << ',' << j << ',' << k << '\t';
-          std::cout << index << "->" << i+j*N1/N2+k*N1 << std::endl;
-          x[i+j*N1/N2+k*N1] = temp[index++];
+          if(N2 == 1)
+          {
+            std::cout << index << "->" << i+j*6+k*N1 << std::endl;
+            x[i+j*6+k*N1] = temp[index++];
+          }
+          else
+          {
+            std::cout << index << "->" << i+j*N2+k*N1 << std::endl;
+            x[i+j*N2+k*N1] = temp[index++];
+          }
         }
       }
     }
