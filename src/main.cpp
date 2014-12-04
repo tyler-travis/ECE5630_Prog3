@@ -6,6 +6,7 @@
 #include <cstdlib>
 #include <cstring>
 
+#define MAX_POWER 4
 
 void fft6(int, int, std::complex<double>*);
 void twiddle(std::complex<double>*, int, double);
@@ -16,7 +17,7 @@ const std::complex<double> WN[] = {1.0, 1.0/2.0+sqrt(3.0)/2.0i, -1.0/2.0+sqrt(3.
 
 int main(int argc, char** argv)
 {
-  const int N = 216;
+  const int N = atoi(argv[1]);
   std::ofstream x_dat("../data/x.dat");
   std::ofstream y_dat("../data/y.dat");
   std::complex<double> x[N];
@@ -28,7 +29,6 @@ int main(int argc, char** argv)
   {
     x[n] = cos(2*M_PI*freq1*n) + cos(2*M_PI*freq2*n) + cos(2*M_PI*freq3*n) + cos(2*M_PI*freq4*n);
   }
-  bit_reorder(x, N);
   for(int i = 0; i < N; ++i)
   {
     //std::cout << x[i] << std::endl;
@@ -36,6 +36,7 @@ int main(int argc, char** argv)
   }
   std::cout << "FFT" << std::endl;
   fft6(0, N, x);
+  bit_reorder(x, N);
   for(int i = 0; i < N; ++i)
   {
     //std::cout << x[i] << std::endl;
@@ -44,42 +45,54 @@ int main(int argc, char** argv)
   return 0;
 }
 
-void twiddle(std::complex<double>* W, int N, double k)
-{
-  W->real(cos(k*2*M_PI/(double)N));
-  W->imag(-sin(k*2*M_PI/(double)N));
-}
-
 void bit_reorder(std::complex<double>* x, int N)
 {
-  int power, N1;
+  int power, N1, N2;
+  std::cout << "N: " << N << std::endl;
   std::complex<double> temp[N];
   for(int i = 0; i < N; ++i)
   {
     temp[i] = x[i];
   }
 
-  for(int i = 0; i < 10; ++i)
+  for(int i = 0; i < MAX_POWER; ++i)
   {
     if(pow(6,i) == N)
     {
       power = i;
       N1 = pow(6,i)/6.0;
+      N2 = N1/6.0;
     }
   }
-  std::cout << power << std::endl;
-  for(int i = 0; i < N; i+=N1)
+
+  std::cout << "power: " << power << std::endl;
+  std::cout << "N1: " << N1 << std::endl;
+  std::cout << "N2: " << N2 << std::endl;
+  int index = 0;
+  for(int i = 0; i < N; i++)
   {
-    std::cout << "\ti: " << i << std::endl;
-    for(int j = 0; j < N1; j++)
+    for(int j = 0; j < N1/N2; j++)
     {
-      if(i+N1*j < N)
+      for(int k = 0; k < N2; k++)
       {
-        std::cout << "temp at " << i+N1*j << std::endl;
-        x[i+j] = temp[i+N1*j];
+        if(index > N)
+          break;
+
+        if(i + j*N1/N2 + k*N1 < N)
+        {
+          std::cout << i << ',' << j << ',' << k << '\t';
+          std::cout << index << "->" << i+j*N1/N2+k*N1 << std::endl;
+          x[i+j*N1/N2+k*N1] = temp[index++];
+        }
       }
     }
   }
+}
+
+void twiddle(std::complex<double>* W, int N, double k)
+{
+  W->real(cos(k*2*M_PI/(double)N));
+  W->imag(-sin(k*2*M_PI/(double)N));
 }
 
 void fft6(int in, int N, std::complex<double>* x)
