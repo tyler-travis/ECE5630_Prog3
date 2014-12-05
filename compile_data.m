@@ -7,5 +7,5 @@ Y = complex(yin(:,1),yin(:,2));
 X = fft(x,length(Y));
 
 figure(1); plot(abs(x));
-figure(2); stem(abs(X));
-figure(3); stem(abs(Y));
+figure(2); title('Matlab fft'); stem(abs(X));
+figure(3); title('Radix-6 fft'); plot(abs(Y));

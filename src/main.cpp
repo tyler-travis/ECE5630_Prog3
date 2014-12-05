@@ -31,16 +31,15 @@ int main(int argc, char** argv)
   }
   for(int i = 0; i < N; ++i)
   {
-    //std::cout << x[i] << std::endl;
     x_dat << x[i].real() << '\t' << x[i].imag() << std::endl;
   }
   std::cout << "FFT" << std::endl;
   fft6(0, N, x);
-  if(N != 6)
-    bit_reorder(x, N);
+  bit_reorder(x, N);
+  fft6(1, N, x);
+  bit_reorder(x, N);
   for(int i = 0; i < N; ++i)
   {
-    //std::cout << x[i] << std::endl;
     y_dat << x[i].real() << '\t' << x[i].imag() << std::endl;
   }
   return 0;
@@ -49,7 +48,7 @@ int main(int argc, char** argv)
 void bit_reorder(std::complex<double>* x, int N)
 {
   int power, N1, N2, N3;
-  std::cout << "N: " << N << std::endl;
+  int N4 = 1;
   std::complex<double> temp[N];
   for(int i = 0; i < N; ++i)
   {
@@ -62,7 +61,14 @@ void bit_reorder(std::complex<double>* x, int N)
     {
       power = i;
       N1 = pow(6,i)/6.0;
-      N2 = N1/6.0;
+      if(N1 > 1)
+      {
+        N2 = N1/6.0;
+      }
+      else
+      {
+        N2 = 1;
+      }
       if(N2 > 1)
       {
         N3 = N2/6.0;
@@ -75,30 +81,42 @@ void bit_reorder(std::complex<double>* x, int N)
   }
 
   std::cout << "power: " << power << std::endl;
+  std::cout << "N:  " << N << std::endl;
   std::cout << "N1: " << N1 << std::endl;
   std::cout << "N2: " << N2 << std::endl;
+  std::cout << "N3: " << N3 << std::endl;
   int index = 0;
   for(int i = 0; i < 6; i++)
   {
-    for(int j = 0; j < N1/N2*N3; j++)
+    for(int j = 0; j < N1/N2; j++)
     {
       for(int k = 0; k < N2/N3; k++)
       {
-        if(index > N)
-          break;
-
-        if(i + j*N1/N2 + k*N1 < N)
+        for(int l = 0; l < N3/N4; l++)
         {
-          std::cout << i << ',' << j << ',' << k << '\t';
-          if(N2 == 1)
+          if(index > N)
+            break;
+
+          std::cout << i << ',' << j << ',' << k << ',' << l << '\t';
+          if(N1 == 1)
+          {
+            std::cout << index << "->" << i << std::endl;
+            x[i] = temp[index++];
+          }
+          else if(N2 == 1)
           {
             std::cout << index << "->" << i+j*6+k*N1 << std::endl;
-            x[i+j*6+k*N1] = temp[index++];
+            x[i+j*N1] = temp[index++];
+          }
+          else if(N3 == 1)
+          {
+            std::cout << index << "->" << i*N3+j*N2+k*N1 << std::endl;
+            x[i*N3 + j*N2 + k*N1] = temp[index++];
           }
           else
           {
-            std::cout << index << "->" << i+j*N2+k*N1 << std::endl;
-            x[i+j*N2+k*N1] = temp[index++];
+            std::cout << index << "->" << i*N4+j*N3+k*N2+l*N1 << std::endl;
+            x[i*N4 + j*N3 + k*N2 + l*N1] = temp[index++];
           }
         }
       }
@@ -119,6 +137,14 @@ void fft6(int in, int N, std::complex<double>* x)
   int N1 = 6;
   int N2 = N/6;
 
+  if(in == 1)
+  {
+    std::cout << "Conj" << std::endl;
+    for(int i = 0; i < N; i++)
+    {
+      x[i] = std::conj(x[i]);
+    }
+  }
   for(int n = 0; n < N2; n++)
   {
     butterfly[0] = (WN[0]*x[n] + WN[0]*x[N2+n] + WN[0]*x[2*N2+n] + WN[0]*x[3*N2+n] + WN[0]*x[4*N2+n] + WN[0]*x[5*N2+n]);
@@ -137,7 +163,22 @@ void fft6(int in, int N, std::complex<double>* x)
   {
     for(int k = 0; k < N1; k++)
     {
-      fft6(in, N2, &x[N2*k]);
+      fft6(2, N2, &x[N2*k]);
+    }
+  }
+  if(in == 1)
+  {
+    for(int i = 0; i < N; i++)
+    {
+      x[i] /= N;
+    }
+  }
+  if(in == 1)
+  {
+    std::cout << "Conj" << std::endl;
+    for(int i = 0; i < N; i++)
+    {
+      x[i] = std::conj(x[i]);
     }
   }
 }
