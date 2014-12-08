@@ -33,7 +33,6 @@ int main(int argc, char** argv)
   {
     x_dat << x[i].real() << '\t' << x[i].imag() << std::endl;
   }
-  std::cout << "FFT" << std::endl;
   fft6(0, N, x);
   bit_reorder(x, N);
   for(int i = 0; i < N; ++i)

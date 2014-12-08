@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2014.12.7)  7 DEC 2014 19:12
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2014.12.7)  7 DEC 2014 19:34
 entering extended mode
 **prog3.tex
 ("C:\Users\ttravis\Documents\School\Fall2014\ECE 5630\Programming3\prog3.tex"
@@ -240,42 +240,57 @@ Overfull \hbox (79.05037pt too wide) in paragraph at lines 30--31
 [4
 
 ] [5] [6]
-Overfull \hbox (203.25163pt too wide) in paragraph at lines 150--151
+Overfull \hbox (203.25163pt too wide) in paragraph at lines 144--145
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (203.25163pt too wide) in paragraph at lines 145--146
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
 ][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
  []
 
 
-Overfull \hbox (203.25163pt too wide) in paragraph at lines 151--152
+Overfull \hbox (203.25163pt too wide) in paragraph at lines 146--147
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
 ][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
  []
 
 
-Overfull \hbox (203.25163pt too wide) in paragraph at lines 152--153
+Overfull \hbox (203.25163pt too wide) in paragraph at lines 147--148
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
 ][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
  []
 
 
-Overfull \hbox (203.25163pt too wide) in paragraph at lines 153--154
+Overfull \hbox (203.25163pt too wide) in paragraph at lines 148--149
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
 ][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
  []
 
 
-Overfull \hbox (203.25163pt too wide) in paragraph at lines 154--155
+Overfull \hbox (203.25163pt too wide) in paragraph at lines 149--150
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
 ][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
  []
 
+) [7] <plots/Part2-1296-FFT-Mag.png, id=34, 476.13176pt x 357.09882pt>
+File: plots/Part2-1296-FFT-Mag.png Graphic file (type png)
 
-Overfull \hbox (203.25163pt too wide) in paragraph at lines 155--156
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
-][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
- []
+<use plots/Part2-1296-FFT-Mag.png>
+Package pdftex.def Info: plots/Part2-1296-FFT-Mag.png used on input line 262.
+(pdftex.def)             Requested size: 234.87749pt x 176.1569pt.
+ [8 <C:/Users/ttravis/Documents/School/Fall2014/ECE 5630/Programming3/plots/Par
+t2-1296-FFT-Mag.png (PNG copy)>]
+<plots/Part3-1296-FFT-Mag-and-Time.png, id=38, 476.13176pt x 357.09882pt>
+File: plots/Part3-1296-FFT-Mag-and-Time.png Graphic file (type png)
 
-) [7] [8]
+<use plots/Part3-1296-FFT-Mag-and-Time.png>
+Package pdftex.def Info: plots/Part3-1296-FFT-Mag-and-Time.png used on input li
+ne 289.
+(pdftex.def)             Requested size: 234.87749pt x 176.1569pt.
+
 ("C:\Users\ttravis\Documents\School\Fall2014\ECE 5630\Programming3\src/main3.cp
 p"
 Overfull \hbox (30.44987pt too wide) in paragraph at lines 18--19
@@ -289,7 +304,8 @@ Overfull \hbox (35.84993pt too wide) in paragraph at lines 19--21
 
 [9
 
-] [10] [11] [12]
+ <C:/Users/ttravis/Documents/School/Fall2014/ECE 5630/Programming3/plots/Part3-
+1296-FFT-Mag-and-Time.png (PNG copy)>] [10] [11] [12]
 Overfull \hbox (203.25163pt too wide) in paragraph at lines 217--218
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
 ][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
@@ -325,16 +341,16 @@ Overfull \hbox (203.25163pt too wide) in paragraph at lines 222--223
 ][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
  []
 
-) 
+[13]) 
 AED: lastpage setting LastPage
-[13]
+[14]
 ("C:\Users\ttravis\Documents\School\Fall2014\ECE 5630\Programming3\prog3.aux") 
 ) 
 Here is how much of TeX's memory you used:
- 4489 strings out of 493921
- 67352 string characters out of 3144870
- 287475 words of memory out of 3000000
- 7745 multiletter control sequences out of 15000+200000
+ 4505 strings out of 493921
+ 67775 string characters out of 3144870
+ 290475 words of memory out of 3000000
+ 7757 multiletter control sequences out of 15000+200000
  10408 words of font info for 36 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
  36i,12n,58p,288b,1787s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -349,9 +365,9 @@ TeX 2.9/fonts/type1/public/amsfonts/cm/cmr9.pfb><C:/Program Files (x86)/MiKTeX
 2.9/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/Program Files (x86)/MiKTeX 2.
 9/fonts/type1/urw/courier/ucrr8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/t
 ype1/urw/courier/ucrro8a.pfb>
-Output written on prog3.pdf (13 pages, 160315 bytes).
+Output written on prog3.pdf (14 pages, 172819 bytes).
 PDF statistics:
- 86 PDF objects out of 1000 (max. 8388607)
+ 91 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 11 words of extra memory for PDF output out of 10000 (max. 10000000)
 

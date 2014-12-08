@@ -259,7 +259,7 @@
   \begin{figure}[h]
       \caption{radix-6 FFT output of the 4 sinusoids}
       \centering
-      \includegraphics[width=0.5\textwidth]{}
+      \includegraphics[width=0.5\textwidth]{plots/Part2-1296-FFT-Mag}
   \end{figure}
 \end{homeworkProblem}
 \clearpage
@@ -280,8 +280,16 @@
   \begin{center}
     \noindent\rule{6.5in}{0.4pt}
   \end{center}
-
-  Listing \ref{src/main3} shows the first program.
+  The program removes the high frequency components effectively and the output
+  sounds as expected with the flute noises no longer being there.
+  
+  \begin{figure}[h]
+      \caption{radix-6 FFT output of the sound file}
+      \centering
+      \includegraphics[width=0.5\textwidth]{plots/Part3-1296-FFT-Mag-and-Time}
+    \end{figure}
+    
+    Listing \ref{src/main3} shows the first program.
 
   \cppscript{src/main3}{Program 1 - main3.cpp}
 
