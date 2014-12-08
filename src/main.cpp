@@ -36,12 +36,17 @@ int main(int argc, char** argv)
   std::cout << "FFT" << std::endl;
   fft6(0, N, x);
   bit_reorder(x, N);
-  fft6(1, N, x);
-  bit_reorder(x, N);
   for(int i = 0; i < N; ++i)
   {
     y_dat << x[i].real() << '\t' << x[i].imag() << std::endl;
   }
+  fft6(1, N, x);
+  bit_reorder(x, N);
+  /*
+  for(int i = 0; i < N; ++i)
+  {
+    y_dat << x[i].real() << '\t' << x[i].imag() << std::endl;
+  }*/
   return 0;
 }
 
@@ -80,11 +85,6 @@ void bit_reorder(std::complex<double>* x, int N)
     }
   }
 
-  std::cout << "power: " << power << std::endl;
-  std::cout << "N:  " << N << std::endl;
-  std::cout << "N1: " << N1 << std::endl;
-  std::cout << "N2: " << N2 << std::endl;
-  std::cout << "N3: " << N3 << std::endl;
   int index = 0;
   for(int i = 0; i < 6; i++)
   {
@@ -97,25 +97,20 @@ void bit_reorder(std::complex<double>* x, int N)
           if(index > N)
             break;
 
-          std::cout << i << ',' << j << ',' << k << ',' << l << '\t';
           if(N1 == 1)
           {
-            std::cout << index << "->" << i << std::endl;
             x[i] = temp[index++];
           }
           else if(N2 == 1)
           {
-            std::cout << index << "->" << i+j*6+k*N1 << std::endl;
             x[i+j*N1] = temp[index++];
           }
           else if(N3 == 1)
           {
-            std::cout << index << "->" << i*N3+j*N2+k*N1 << std::endl;
             x[i*N3 + j*N2 + k*N1] = temp[index++];
           }
           else
           {
-            std::cout << index << "->" << i*N4+j*N3+k*N2+l*N1 << std::endl;
             x[i*N4 + j*N3 + k*N2 + l*N1] = temp[index++];
           }
         }
@@ -139,7 +134,6 @@ void fft6(int in, int N, std::complex<double>* x)
 
   if(in == 1)
   {
-    std::cout << "Conj" << std::endl;
     for(int i = 0; i < N; i++)
     {
       x[i] = std::conj(x[i]);
@@ -175,7 +169,6 @@ void fft6(int in, int N, std::complex<double>* x)
   }
   if(in == 1)
   {
-    std::cout << "Conj" << std::endl;
     for(int i = 0; i < N; i++)
     {
       x[i] = std::conj(x[i]);
