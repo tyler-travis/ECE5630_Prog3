@@ -1,0 +1,479 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Programming/Coding Assignment
+% LaTeX Template
+%
+% This template has been downloaded from:
+% http://www.latextemplates.com
+%
+% Original author:
+% Ted Pavlic (http://www.tedpavlic.com)
+%
+% Note:
+% The \lipsum[#] commands throughout this template generate dummy text
+% to fill the template out. These commands should all be removed when 
+% writing assignment content.
+%
+% This template uses a Perl script as an example snippet of code, most other
+% languages are also usable. Configure them in the "CODE INCLUSION 
+% CONFIGURATION" section.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass{article}
+
+\usepackage{fancyhdr} % Required for custom headers
+\usepackage{lastpage} % Required to determine the last page for the footer
+\usepackage{extramarks} % Required for headers and footers
+\usepackage[usenames,dvipsnames]{color} % Required for custom colors
+\usepackage{graphicx} % Required to insert images
+\usepackage{listings} % Required for insertion of code
+\usepackage{courier} % Required for the courier font
+\usepackage{lipsum} % Used for inserting dummy 'Lorem ipsum' text into the template
+\usepackage{caption}
+\usepackage{subcaption}
+
+
+% Margins
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1} % Line spacing
+
+% Set up the header and footer
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName} % Top left header
+\chead{\hmwkClass\ (\hmwkClassInstructor\ \hmwkClassTime): \hmwkTitle} % Top center head
+\rhead{\firstxmark} % Top right header
+\lfoot{\lastxmark} % Bottom left footer
+\cfoot{} % Bottom center footer
+\rfoot{Page\ \thepage\ of\ \protect\pageref{LastPage}} % Bottom right footer
+\renewcommand\headrulewidth{0.4pt} % Size of the header rule
+\renewcommand\footrulewidth{0.4pt} % Size of the footer rule
+
+\setlength\parindent{0pt} % Removes all indentation from paragraphs
+
+%----------------------------------------------------------------------------------------
+%	CODE INCLUSION CONFIGURATION
+%----------------------------------------------------------------------------------------
+
+\definecolor{MyDarkGreen}{rgb}{0.0,0.4,0.0} % This is the color used for comments
+\lstloadlanguages{C++} % Load Perl syntax for listings, for a list of other languages supported see: ftp://ftp.tex.ac.uk/tex-archive/macros/latex/contrib/listings/listings.pdf
+\lstset{language=C++, % Use Perl in this example
+        frame=single, % Single frame around code
+        basicstyle=\small\ttfamily, % Use small true type font
+        keywordstyle=[1]\color{Blue}\bf, % Perl functions bold and blue
+        keywordstyle=[2]\color{Purple}, % Perl function arguments purple
+        keywordstyle=[3]\color{Blue}\underbar, % Custom functions underlined and blue
+        identifierstyle=, % Nothing special about identifiers                                         
+        commentstyle=\usefont{T1}{pcr}{m}{sl}\color{MyDarkGreen}\small, % Comments small dark green courier font
+        stringstyle=\color{Purple}, % Strings are purple
+        showstringspaces=false, % Don't put marks in string spaces
+        tabsize=5, % 5 spaces per tab
+        %
+        % Put standard Perl functions not included in the default language here
+        morekeywords={rand},
+        %
+        % Put Perl function parameters here
+        morekeywords=[2]{on, off, interp},
+        %
+        % Put user defined functions here
+        morekeywords=[3]{test},
+       	%
+        morecomment=[l][\color{Blue}]{...}, % Line continuation (...) like blue comment
+        numbers=left, % Line numbers on left
+        firstnumber=1, % Line numbers start with line 1
+        numberstyle=\tiny\color{Blue}, % Line numbers are blue and small
+        stepnumber=5 % Line numbers go in steps of 5
+}
+
+% Creates a new command to include a perl script, the first parameter is the filename of the script (without .pl), the second parameter is the caption
+\newcommand{\cppscript}[2]{
+\begin{itemize}
+\item[]\lstinputlisting[caption=#2,label=#1]{#1.cpp}
+\end{itemize}
+}
+
+%----------------------------------------------------------------------------------------
+%	DOCUMENT STRUCTURE COMMANDS
+%	Skip this unless you know what you're doing
+%----------------------------------------------------------------------------------------
+
+% Header and footer for when a page split occurs within a problem environment
+\newcommand{\enterProblemHeader}[1]{
+\nobreak\extramarks{#1}{#1 continued on next page\ldots}\nobreak
+\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak
+}
+
+% Header and footer for when a page split occurs between problem environments
+\newcommand{\exitProblemHeader}[1]{
+\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak
+\nobreak\extramarks{#1}{}\nobreak
+}
+
+\setcounter{secnumdepth}{0} % Removes default section numbers
+\newcounter{homeworkProblemCounter} % Creates a counter to keep track of the number of problems
+
+\newcommand{\homeworkProblemName}{}
+\newenvironment{homeworkProblem}[1][Problem \arabic{homeworkProblemCounter}]{ % Makes a new environment called homeworkProblem which takes 1 argument (custom name) but the default is "Problem #"
+\stepcounter{homeworkProblemCounter} % Increase counter for number of problems
+\renewcommand{\homeworkProblemName}{#1} % Assign \homeworkProblemName the name of the problem
+\section{\homeworkProblemName} % Make a section in the document with the custom problem count
+\enterProblemHeader{\homeworkProblemName} % Header and footer within the environment
+}{
+\exitProblemHeader{\homeworkProblemName} % Header and footer after the environment
+}
+
+\newcommand{\problemAnswer}[1]{ % Defines the problem answer command with the content as the only argument
+\noindent\framebox[\columnwidth][c]{\begin{minipage}{0.98\columnwidth}#1\end{minipage}} % Makes the box around the problem answer and puts the content inside
+}
+
+\newcommand{\homeworkSectionName}{}
+\newenvironment{homeworkSection}[1]{ % New environment for sections within homework problems, takes 1 argument - the name of the section
+\renewcommand{\homeworkSectionName}{#1} % Assign \homeworkSectionName to the name of the section from the environment argument
+\subsection{\homeworkSectionName} % Make a subsection with the custom name of the subsection
+\enterProblemHeader{\homeworkProblemName\ [\homeworkSectionName]} % Header and footer within the environment
+}{
+\enterProblemHeader{\homeworkProblemName} % Header and footer after the environment
+}
+
+%----------------------------------------------------------------------------------------
+%	NAME AND CLASS SECTION
+%----------------------------------------------------------------------------------------
+
+\newcommand{\hmwkTitle}{Programming\ \#3} % Assignment title
+\newcommand{\hmwkDueDate}{Thursday,\ Dec\ 11,\ 2014} % Due date
+\newcommand{\hmwkClass}{ECE\ 5630} % Course/class
+\newcommand{\hmwkClassTime}{3:00pm} % Class/lecture time
+\newcommand{\hmwkClassInstructor}{Scott Budge} % Teacher/lecturer
+\newcommand{\hmwkAuthorName}{Tyler Travis A01519795} % Your name
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\title{
+\vspace{2in}
+\textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+\normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate}\\
+\vspace{0.1in}\large{\textit{\hmwkClassInstructor\ \hmwkClassTime}}
+\vspace{3in}
+}
+
+\author{\textbf{\hmwkAuthorName}}
+\date{} % Insert date here if you want it to appear below your name
+
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+
+\maketitle
+
+%----------------------------------------------------------------------------------------
+%	TABLE OF CONTENTS
+%----------------------------------------------------------------------------------------
+
+%\setcounter{tocdepth}{1} % Uncomment this line if you don't want subsections listed in the ToC
+
+\newpage
+\tableofcontents
+\newpage
+
+%----------------------------------------------------------------------------------------
+%	PROBLEM 1
+%----------------------------------------------------------------------------------------
+
+% To have just one problem per page, simply put a \clearpage after each problem
+
+\begin{homeworkProblem}
+  Create the signal flow-graph for the butterfly for a decimation-in-time
+  radix-6 fast Fourier transform (FFT). (Only one stage.)
+  \begin{homeworkSection}{(a)}
+    Plot the impuse resonse h(n) of the filter.
+    \begin{center}
+      \noindent\rule{6.5in}{0.4pt}
+    \end{center}
+    Figure 1 shows the Impulse response of the filter h[n].
+
+    \begin{figure}[h]
+      \centering
+      \includegraphics[width=0.75\columnwidth]{plots/Part1-a-Impulse}
+      \caption{Impulse Response}
+    \end{figure}
+
+  \end{homeworkSection}
+  \begin{homeworkSection}{(b)}
+    Plot the desired magnitude response, the actual magnitude response, and phase response.
+    \begin{center}
+      \noindent\rule{6.5in}{0.4pt}
+    \end{center}
+
+    Figure 2 shows the Magnitude and Phase response of the filter h[n].
+
+    \begin{figure}[h]
+      \centering
+      \includegraphics[width=0.75\columnwidth]{plots/Part1-b-Mag_Phase}
+      \caption{Impulse Response}
+    \end{figure}
+  \end{homeworkSection}
+
+\end{homeworkProblem}
+\clearpage
+%----------------------------------------------------------------------------------------
+%	PROBLEM 2
+%----------------------------------------------------------------------------------------
+
+\begin{homeworkProblem}
+  In C or C++, write a function that performs the decimation-in-time
+  radix-6 fast Fourier transform (FFT).
+  \begin{description}
+    \item[(a)] What are the number of multiplies and adds required 
+      to perform a 1296-point DFT? What about a radix-6 FFT?
+    \item[(b)] Verify that your FFT works as expected by computing
+      the FFT of 1296 points of a signal created by adding together
+      sinusoids of frequencies at $f=17.01Hz$, $f=297.71Hz$, 
+      $f=425.35Hz$, and $f=2637Hz$. Use a sample rate of 11.025kHz to
+      create the test sinusoids
+    \item[(c)] Plot the magnitude of the FFt output. Which bins have
+      values larger than the others? (Remember that there may be some
+      computation noise in each bin.)
+  \end{description}
+  \begin{center}
+    \noindent\rule{6.5in}{0.4pt}
+  \end{center}
+  Listing \ref{src/main} shows the first program.
+
+  \cppscript{src/main}{Program 1 - main.cpp}
+
+  \begin{homeworkSection}{(a)}
+    What are the number of multiplies and adds per output sample?
+    \begin{center}
+      \noindent\rule{6.5in}{0.4pt}
+    \end{center}
+    The number of multiples is
+  \end{homeworkSection}
+
+  \begin{homeworkSection}{(b)}
+    Verify that your filter coefficients are correct and your filter routine works as expected by running sinusoids through your filter and finding the magnitude response. (Remember to wait long enough that the filter transients have died down.) Do this for frequencies of $f=10Hz$, $f=40Hz$, $f=150Hz$, $f=350Hz$, and $f=500Hz$. Use a sample rate of 11.025kHz.
+
+    \begin{center}
+      \noindent\rule{6.5in}{0.4pt}
+    \end{center}
+
+    \begin{figure}[ht]
+      \centering
+      \begin{subfigure}[b]{0.4\textwidth}
+        \includegraphics[width=\textwidth]{plots/Part2-b-x_10}
+        \caption{x[n]}
+        \label{[fig:2x_10]}
+      \end{subfigure}
+      \begin{subfigure}[b]{0.4\textwidth}
+        \includegraphics[width=\textwidth]{plots/Part2-b-y_10}
+        \caption{y[n]}
+        \label{[fig:2y_10]}
+      \end{subfigure}
+      \caption{Input(a) and Output(b) with f = 10Hz}
+    \end{figure}
+
+    \begin{figure}[ht]
+      \centering
+      \begin{subfigure}[b]{0.4\textwidth}
+        \includegraphics[width=\textwidth]{plots/Part2-b-x_40}
+        \caption{x[n]}
+        \label{[fig:2x_40]}
+      \end{subfigure}
+      \begin{subfigure}[b]{0.4\textwidth}
+        \includegraphics[width=\textwidth]{plots/Part2-b-y_40}
+        \caption{y[n]}
+        \label{[fig:2y_40]}
+      \end{subfigure}
+      \caption{Input(a) and Output(b) with f = 40Hz}
+    \end{figure}
+
+    \begin{figure}[ht]
+      \centering
+      \begin{subfigure}[b]{0.4\textwidth}
+        \includegraphics[width=\textwidth]{plots/Part2-b-x_150}
+        \caption{x[n]}
+        \label{[fig:2x_150]}
+      \end{subfigure}
+      \begin{subfigure}[b]{0.4\textwidth}
+        \includegraphics[width=\textwidth]{plots/Part2-b-y_150}
+        \caption{y[n]}
+        \label{[fig:2y_150]}
+      \end{subfigure}
+      \caption{Input(a) and Output(b) with f = 150Hz}
+    \end{figure}
+
+    \begin{figure}[ht]
+      \centering
+      \begin{subfigure}[b]{0.4\textwidth}
+        \includegraphics[width=\textwidth]{plots/Part2-b-x_350}
+        \caption{x[n]}
+        \label{[fig:2x_350]}
+      \end{subfigure}
+      \begin{subfigure}[b]{0.4\textwidth}
+        \includegraphics[width=\textwidth]{plots/Part2-b-y_350}
+        \caption{y[n]}
+        \label{[fig:2y_350]}
+      \end{subfigure}
+      \caption{Input(a) and Output(b) with f = 350Hz}
+    \end{figure}
+
+    \begin{figure}[ht]
+      \centering
+      \begin{subfigure}[b]{0.4\textwidth}
+        \includegraphics[width=\textwidth]{plots/Part2-b-x_500}
+        \caption{x[n]}
+        \label{[fig:2x_500]}
+      \end{subfigure}
+      \begin{subfigure}[b]{0.4\textwidth}
+        \includegraphics[width=\textwidth]{plots/Part2-b-y_500}
+        \caption{y[n]}
+        \label{[fig:2y_500]}
+      \end{subfigure}
+      \caption{Input(a) and Output(b) with f = 500Hz}
+    \end{figure}
+
+  \end{homeworkSection}
+
+  \begin{homeworkSection}{(c)}
+    Compare the computed magnitude response with the theoretical magnitude resposne (obtained from Matlab). Record the magnitude response for each of the input frequencies and plot them on a plot with the theoretical magnitude response.\\\\
+    \begin{center}
+      \noindent\rule{6.5in}{0.4pt}
+    \end{center}
+  \end{homeworkSection}
+%\problemAnswer{
+%\begin{center}
+%\includegraphics[width=0.75\columnwidth]{plots/Part2-b-x_10} % Example image
+%end{center}
+
+
+%}
+\end{homeworkProblem}
+\clearpage
+
+%----------------------------------------------------------------------------------------
+%	PROBLEM 3
+%----------------------------------------------------------------------------------------
+
+\begin{homeworkProblem}
+  Use the Matlab function wavread() to generate the samples of the file
+  galway11\_mono\_45sec.wav. use your FFT fro 1. aboe, and the
+  frquency-domain fast convolution program and filter from Programming
+  Assignment 2, to filter the sound file. Use a FFT length of 1296 
+  points. The result should be the same as for the last programming
+  assignment. Does the filter remove the high frequency components?
+  Does the processed file sound as you expected? Write out the final
+  reslts in a .wav file for the instructor to listen to.
+  \begin{center}
+    \noindent\rule{6.5in}{0.4pt}
+  \end{center}
+
+  Listing \ref{src/part2} shows the first program.
+
+  \cppscript{src/part2}{Program 1 - part2.cpp}
+
+  \begin{homeworkSection}{(a)}
+    What are the number of multiplies and adds per output sample for both overlap-add and overlap-save?
+    \begin{center}
+      \noindent\rule{6.5in}{0.4pt}
+    \end{center}
+    The number of multiples is
+  \end{homeworkSection}
+
+  \begin{homeworkSection}{(b)}
+    Repeat 2(b)-(c) with the frequency domain filter program
+
+    \begin{center}
+      \noindent\rule{6.5in}{0.4pt}
+    \end{center}
+
+    \begin{figure}[ht]
+      \centering
+      \begin{subfigure}[b]{0.4\textwidth}
+        \includegraphics[width=\textwidth]{plots/Part3-b-x_10}
+        \caption{x[n]}
+        \label{[fig:3x_10]}
+      \end{subfigure}
+      \begin{subfigure}[b]{0.4\textwidth}
+        \includegraphics[width=\textwidth]{plots/Part3-b-y_10}
+        \caption{y[n]}
+        \label{[fig:3y_10]}
+      \end{subfigure}
+      \caption{Input(a) and Output(b) with f = 10Hz}
+    \end{figure}
+
+    \begin{figure}[ht]
+      \centering
+      \begin{subfigure}[b]{0.4\textwidth}
+        \includegraphics[width=\textwidth]{plots/Part3-b-x_40}
+        \caption{x[n]}
+        \label{[fig:3x_40]}
+      \end{subfigure}
+      \begin{subfigure}[b]{0.4\textwidth}
+        \includegraphics[width=\textwidth]{plots/Part3-b-y_40}
+        \caption{y[n]}
+        \label{[fig:3y_40]}
+      \end{subfigure}
+      \caption{Input(a) and Output(b) with f = 40Hz}
+    \end{figure}
+
+    \begin{figure}[ht]
+      \centering
+      \begin{subfigure}[b]{0.4\textwidth}
+        \includegraphics[width=\textwidth]{plots/Part3-b-x_150}
+        \caption{x[n]}
+        \label{[fig:3x_150]}
+      \end{subfigure}
+      \begin{subfigure}[b]{0.4\textwidth}
+        \includegraphics[width=\textwidth]{plots/Part3-b-y_150}
+        \caption{y[n]}
+        \label{[fig:3y_150]}
+      \end{subfigure}
+      \caption{Input(a) and Output(b) with f = 150Hz}
+    \end{figure}
+
+    \begin{figure}[ht]
+      \centering
+      \begin{subfigure}[b]{0.4\textwidth}
+        \includegraphics[width=\textwidth]{plots/Part3-b-x_350}
+        \caption{x[n]}
+        \label{[fig:3x_350]}
+      \end{subfigure}
+      \begin{subfigure}[b]{0.4\textwidth}
+        \includegraphics[width=\textwidth]{plots/Part3-b-y_350}
+        \caption{y[n]}
+        \label{[fig:3y_350]}
+      \end{subfigure}
+      \caption{Input(a) and Output(b) with f = 350Hz}
+    \end{figure}
+
+    \begin{figure}[ht]
+    \centering
+    \begin{subfigure}[b]{0.4\textwidth}
+      \includegraphics[width=\textwidth]{plots/Part3-b-x_500}
+      \caption{x[n]}
+      \label{[fig:3x_500]}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.4\textwidth}
+      \includegraphics[width=\textwidth]{plots/Part3-b-y_500}
+      \caption{y[n]}
+      \label{[fig:3y_500]}
+    \end{subfigure}
+    \caption{Input(a) and Output(b) with f = 500Hz}
+    \end{figure}
+
+  \end{homeworkSection}
+
+\end{homeworkProblem}
+%----------------------------------------------------------------------------------------
+
+\end{document}
