@@ -6,49 +6,74 @@
 #include <cstdlib>
 #include <cstring>
 
+// The max power of 6 for this program is 6^4 = 1296
 #define MAX_POWER 4
 
 void fft6(int, int, std::complex<double>*);
 void twiddle(std::complex<double>*, int, double);
 void bit_reorder(std::complex<double>*, int);
 
+// The twiddle factors
 const std::complex<double> WN[] = {1.0, 1.0/2.0+sqrt(3.0)/2.0i, -1.0/2.0+sqrt(3.0)/2.0i,
                                   -1.0, -1.0/2.0-sqrt(3.0)/2.0i, 1.0/2.0-sqrt(3.0)/2.0i};
 
 int main(int argc, char** argv)
 {
   const int N = atoi(argv[1]);
+  
+  // Output files for the data
   std::ofstream x_dat("../data/x.dat");
+  std::ofstream Y_dat("../data/Y.dat");
   std::ofstream y_dat("../data/y.dat");
+
+  // "input" signal 
   std::complex<double> x[N];
+  
+  // The frequencies to create the sine wave
   double freq1 = 17.01/11025;
   double freq2 = 297.74/11025;
   double freq3 = 425.35/11025;
   double freq4 = 2637/11025;
+
+  // Creating the sine wave
   for(int n = 0; n < N; ++n)
   {
     x[n] = cos(2*M_PI*freq1*n) + cos(2*M_PI*freq2*n) + cos(2*M_PI*freq3*n) + cos(2*M_PI*freq4*n);
   }
+
+  // Ouput the sine wave to the output file
   for(int i = 0; i < N; ++i)
   {
     x_dat << x[i].real() << '\t' << x[i].imag() << std::endl;
   }
+
+  // Compute the fft
   fft6(0, N, x);
+
+  // Reorder the bits
   bit_reorder(x, N);
+  
+  // Output the data to the file
+  for(int i = 0; i < N; ++i)
+  {
+    Y_dat << x[i].real() << '\t' << x[i].imag() << std::endl;
+  }
+
+  // Compute the ifft
+  fft6(1, N, x);
+
+  // reorder the bits
+  bit_reorder(x, N);
+
+  // Output the data to the file
   for(int i = 0; i < N; ++i)
   {
     y_dat << x[i].real() << '\t' << x[i].imag() << std::endl;
   }
-  fft6(1, N, x);
-  bit_reorder(x, N);
-  /*
-  for(int i = 0; i < N; ++i)
-  {
-    y_dat << x[i].real() << '\t' << x[i].imag() << std::endl;
-  }*/
   return 0;
 }
 
+// Reoader the indexes
 void bit_reorder(std::complex<double>* x, int N)
 {
   int power, N1, N2, N3;
@@ -59,6 +84,7 @@ void bit_reorder(std::complex<double>* x, int N)
     temp[i] = x[i];
   }
 
+  // Find the curren power of the fft
   for(int i = 0; i <= MAX_POWER; ++i)
   {
     if(pow(6,i) == N)
@@ -84,6 +110,7 @@ void bit_reorder(std::complex<double>* x, int N)
     }
   }
 
+  // Reorder the indexs
   int index = 0;
   for(int i = 0; i < 6; i++)
   {
@@ -118,6 +145,7 @@ void bit_reorder(std::complex<double>* x, int N)
   }
 }
 
+// compute the twiddle factors
 void twiddle(std::complex<double>* W, int N, double k)
 {
   W->real(cos(k*2*M_PI/(double)N));
@@ -138,6 +166,8 @@ void fft6(int in, int N, std::complex<double>* x)
       x[i] = std::conj(x[i]);
     }
   }
+
+  // Compute the values for each stage of the butterfly
   for(int n = 0; n < N2; n++)
   {
     butterfly[0] = (WN[0]*x[n] + WN[0]*x[N2+n] + WN[0]*x[2*N2+n] + WN[0]*x[3*N2+n] + WN[0]*x[4*N2+n] + WN[0]*x[5*N2+n]);
@@ -152,6 +182,9 @@ void fft6(int in, int N, std::complex<double>* x)
       x[n + N2*k] = butterfly[k]*W;
     }
   }
+  
+  // Base case
+  // If the lowest power is reached then skip, otherwise keep doing the algorithm
   if(N2 != 1)
   {
     for(int k = 0; k < N1; k++)
